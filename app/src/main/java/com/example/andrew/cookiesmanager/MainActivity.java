@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 
 import com.example.andrew.cookiesmanager.fragments.ChatFragment;
 import com.example.andrew.cookiesmanager.fragments.CompanyStatisticFragment;
+import com.example.andrew.cookiesmanager.fragments.NotificationsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
 
     ChatFragment chatFragment;
+    NotificationsFragment notificationsFragment;
     CompanyStatisticFragment companyStatisticFragment;
 
     @Override
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private void initFragments() {
         chatFragment = new ChatFragment();
         companyStatisticFragment = new CompanyStatisticFragment();
+        notificationsFragment = new NotificationsFragment();
     }
 
     private void initUiListeners() {
@@ -101,6 +104,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_profile:
                 break;
             case R.id.action_notifications:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_content_container, notificationsFragment)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.action_statistics:
                 getFragmentManager()
