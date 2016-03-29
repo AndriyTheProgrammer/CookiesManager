@@ -76,10 +76,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void tryToSignUp() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void tryToSignIn() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void switchToCredentials(Button btn, Button btnHide){
