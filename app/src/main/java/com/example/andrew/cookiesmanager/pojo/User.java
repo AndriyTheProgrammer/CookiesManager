@@ -9,7 +9,20 @@ public class User {
     private String username;
     private String photoUrl;
 
+    public User(String username) {
+        this.username = username;
+    }
 
+    public User(String email, String username, String photoUrl) {
+
+        this.email = email;
+        this.username = username;
+        this.photoUrl = photoUrl;
+    }
+
+    public User() {
+
+    }
 
     public String getEmail() {
         return email;

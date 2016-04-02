@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,9 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.andrew.cookiesmanager.adapter.UserListAdapter;
 import com.example.andrew.cookiesmanager.fragments.ChatFragment;
 import com.example.andrew.cookiesmanager.fragments.CompanyStatisticFragment;
 import com.example.andrew.cookiesmanager.fragments.NotificationsFragment;
+import com.example.andrew.cookiesmanager.pojo.User;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigationView;
+    RecyclerView usersList;
 
     ChatFragment chatFragment;
     NotificationsFragment notificationsFragment;
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.main_content_container, chatFragment)
                 .commit();
+
+
     }
 
     private void initFragments() {
@@ -67,6 +76,20 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        UserListAdapter adapter = new UserListAdapter();
+        adapter.setUser(generateMockUsers());
+        usersList.setLayoutManager(new LinearLayoutManager(this));
+        usersList.setAdapter(adapter);
+    }
+
+    private ArrayList<User> generateMockUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User("User 1"));
+        users.add(new User("User 2"));
+        users.add(new User("Slackbot"));
+        users.add(new User("someone.weird"));
+        users.add(new User("User N"));
+        return users;
     }
 
     private void findViewsById() {
@@ -74,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
+        usersList = (RecyclerView) navigationView.inflateHeaderView(R.layout.nav_header_main).findViewById(R.id.userList);
     }
 
     @Override
@@ -137,25 +160,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

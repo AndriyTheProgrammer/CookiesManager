@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@color/accent_material_light"
+        android:layout_gravity="center"
+        android:id="@+id/imageAuthor"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#FF000000"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=" james_hetfield"
+        android:id="@+id/tv_chat_msg"
+        android:layout_gravity="center"
+        android:textColor="#212121"
+        android:layout_marginLeft="16dp" />
+
+</LinearLayout>
+</FrameLayout>
