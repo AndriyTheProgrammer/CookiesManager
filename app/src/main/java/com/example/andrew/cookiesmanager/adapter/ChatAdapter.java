@@ -4,12 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.andrew.cookiesmanager.R;
 import com.example.andrew.cookiesmanager.pojo.ChatMessage;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by andrew on 30.03.16.
@@ -70,15 +75,32 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void setupItemView(ChatMessageViewHolder holder, int position) {
-
+        holder.tvChatMessage.setText(chatMessages.get(position).getChatMessage());
     }
 
+    public ArrayList<ChatMessage> getChatMessages() {
+        return chatMessages;
+    }
 
+    public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
+        this.chatMessages = chatMessages;
+        notifyItemRangeChanged(0, chatMessages.size());
+    }
+
+    public void addChatMessage(ChatMessage message){
+        chatMessages.add(message);
+        notifyItemInserted(chatMessages.indexOf(message));
+    }
 
     class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
+        TextView tvChatMessage;
+        CircleImageView imageAuthor;
         public ChatMessageViewHolder(View itemView) {
             super(itemView);
+
+            tvChatMessage = (TextView) itemView.findViewById(R.id.tv_chat_msg);
+            imageAuthor = (CircleImageView) itemView.findViewById(R.id.imageAuthor);
 
 
 

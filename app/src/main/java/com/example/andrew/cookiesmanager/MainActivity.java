@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity
         initViewsData();
         initUiListeners();
         initFragments();
+
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_content_container, chatFragment)
+                .commit();
     }
 
     private void initFragments() {
