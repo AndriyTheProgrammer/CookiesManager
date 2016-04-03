@@ -8,4 +8,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="developer">Developer</string>
+
+    <string-array name="positions">
+        <item>Developer</item>
+        <item>QA</item>
+        <item>Project Manager</item>
+        <item>Designer</item>
+    </string-array>
 </resources>

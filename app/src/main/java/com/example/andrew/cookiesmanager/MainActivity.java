@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import com.example.andrew.cookiesmanager.adapter.UserListAdapter;
 import com.example.andrew.cookiesmanager.fragments.ChatFragment;
 import com.example.andrew.cookiesmanager.fragments.CompanyStatisticFragment;
+import com.example.andrew.cookiesmanager.fragments.EditProfileFragment;
 import com.example.andrew.cookiesmanager.fragments.NotificationsFragment;
 import com.example.andrew.cookiesmanager.pojo.User;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     ChatFragment chatFragment;
     NotificationsFragment notificationsFragment;
     CompanyStatisticFragment companyStatisticFragment;
+    EditProfileFragment editProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         chatFragment = new ChatFragment();
         companyStatisticFragment = new CompanyStatisticFragment();
         notificationsFragment = new NotificationsFragment();
+        editProfileFragment = new EditProfileFragment();
     }
 
     private void initUiListeners() {
@@ -130,6 +133,11 @@ public class MainActivity extends AppCompatActivity
 
         switch (id){
             case R.id.action_profile:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_content_container, editProfileFragment)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.action_notifications:
                 getFragmentManager()
