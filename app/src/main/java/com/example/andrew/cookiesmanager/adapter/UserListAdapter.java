@@ -1,5 +1,6 @@
 package com.example.andrew.cookiesmanager.adapter;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +28,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
     private View.OnClickListener onClick;
-
+    private View view;
 
     @Override
     public int getItemViewType(int position) {
@@ -116,6 +117,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setOnClick(View.OnClickListener onClick) {
+
         this.onClick = onClick;
     }
 
