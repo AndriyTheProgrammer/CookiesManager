@@ -6,7 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,12 +37,16 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigationView;
+    View navHeader;
     RecyclerView usersList;
+//    SearchView searchView;
 
-    ChatFragment chatFragment;
+    UserListAdapter adapter;
+
+     ChatFragment chatFragment;
     NotificationsFragment notificationsFragment;
     CompanyStatisticFragment companyStatisticFragment;
-    EditProfileFragment editProfileFragment;
+    public EditProfileFragment editProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,25 @@ public class MainActivity extends AppCompatActivity
     private void initUiListeners() {
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
+
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adapter.searchQuery(newText);
+//                return true;
+//            }
+//        });
+//
+//        searchView.setOnCloseListener(() -> {
+//            adapter.searchQuery(null);
+//            return true;
+//        });
+
     }
 
     private void initViewsData() {
@@ -78,11 +103,19 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        UserListAdapter adapter = new UserListAdapter();
+        adapter = new UserListAdapter();
+        adapter.setOnClick(v -> {
+            drawer.closeDrawer(GravityCompat.START);
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_content_container, chatFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
         adapter.setUser(generateMockUsers());
         usersList.setLayoutManager(new LinearLayoutManager(this));
         usersList.setAdapter(adapter);
+
     }
 
     private ArrayList<User> generateMockUsers() {
@@ -100,7 +133,9 @@ public class MainActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        usersList = (RecyclerView) navigationView.inflateHeaderView(R.layout.nav_header_main).findViewById(R.id.userList);
+        navHeader = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        usersList = (RecyclerView) navHeader.findViewById(R.id.userList);
+//        searchView = (SearchView) navHeader.findViewById(R.id.search_view);
     }
 
     @Override

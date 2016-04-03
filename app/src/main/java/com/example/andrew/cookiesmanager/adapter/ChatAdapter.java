@@ -26,6 +26,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private ArrayList<ChatMessage> chatMessages = new ArrayList<>();
+    private View.OnClickListener onClick;
 
 
     @Override
@@ -76,6 +77,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setupItemView(ChatMessageViewHolder holder, int position) {
         holder.tvChatMessage.setText(chatMessages.get(position).getChatMessage());
+        holder.imageAuthor.setOnClickListener(onClick);
     }
 
     public ArrayList<ChatMessage> getChatMessages() {
@@ -90,6 +92,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void addChatMessage(ChatMessage message){
         chatMessages.add(message);
         notifyItemInserted(chatMessages.indexOf(message));
+    }
+
+    public void setOnClick(View.OnClickListener onClick){
+        this.onClick = onClick;
     }
 
     class ChatMessageViewHolder extends RecyclerView.ViewHolder {

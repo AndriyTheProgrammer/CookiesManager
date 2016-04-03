@@ -24,8 +24,9 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int EMPTY_VIEW = 1;
     private static final int DEFAULT_VIEW = 2;
 
-
+    private ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
+    private View.OnClickListener onClick;
 
 
     @Override
@@ -76,6 +77,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     Random random = new Random();
     private void setupItemView(UserViewHolder holder, int position) {
+        holder.itemView.setOnClickListener(onClick);
         holder.tvUsername.setText(users.get(position).getUsername());
 
         if (random.nextBoolean())
@@ -90,13 +92,34 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void setUser(ArrayList<User> users) {
         this.users = users;
+        this.allUsers = users;
         notifyItemRangeChanged(0, users.size());
     }
 
-    public void addUser(User message){
-        users.add(message);
-        notifyItemInserted(users.indexOf(message));
+    public void addUser(User user){
+        users.add(user);
+        allUsers.add(user);
+        notifyItemInserted(users.indexOf(user));
     }
+
+    public void searchQuery(String searchQuery) {
+        if (searchQuery == null){
+            users = allUsers;
+        }else {
+            for (User user : users) {
+                if (user.getUsername().contains(searchQuery)) {
+                    users.remove(user);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setOnClick(View.OnClickListener onClick) {
+        this.onClick = onClick;
+    }
+
+
 
     class UserViewHolder extends RecyclerView.ViewHolder {
 
@@ -108,7 +131,6 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             tvUsername = (TextView) itemView.findViewById(R.id.tv_chat_msg);
             imageOnline = (CircleImageView) itemView.findViewById(R.id.imageAuthor);
-
 
 
         }

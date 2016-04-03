@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.andrew.cookiesmanager.MainActivity;
 import com.example.andrew.cookiesmanager.R;
 import com.example.andrew.cookiesmanager.adapter.ChatAdapter;
 import com.example.andrew.cookiesmanager.pojo.ChatMessage;
@@ -57,6 +58,12 @@ public class ChatFragment extends Fragment {
     private void initViewsData() {
         chatAdapter = new ChatAdapter();
         chatAdapter.setChatMessages(generateMockTestMessages());
+        chatAdapter.setOnClick(v ->
+                getActivity().getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_content_container, ((MainActivity) getActivity()).editProfileFragment)
+                        .addToBackStack(null)
+                        .commit());
         chatList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         chatList.setAdapter(chatAdapter);
 
