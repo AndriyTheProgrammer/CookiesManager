@@ -21,13 +21,18 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.andrew.cookiesmanager.adapter.UserListAdapter;
+import com.example.andrew.cookiesmanager.database.SharedPreferencesDatabase;
 import com.example.andrew.cookiesmanager.fragments.ChatFragment;
 import com.example.andrew.cookiesmanager.fragments.CompanyStatisticFragment;
 import com.example.andrew.cookiesmanager.fragments.EditProfileFragment;
 import com.example.andrew.cookiesmanager.fragments.NotificationsFragment;
+import com.example.andrew.cookiesmanager.model.NetworkAPI;
 import com.example.andrew.cookiesmanager.pojo.User;
 
 import java.util.ArrayList;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,11 +52,15 @@ public class MainActivity extends AppCompatActivity
     NotificationsFragment notificationsFragment;
     CompanyStatisticFragment companyStatisticFragment;
     public EditProfileFragment editProfileFragment;
+    SharedPreferencesDatabase sharedPreferencesDatabase;
+
+    NetworkAPI backend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initLogic();
         findViewsById();
         initViewsData();
         initUiListeners();
@@ -63,6 +72,16 @@ public class MainActivity extends AppCompatActivity
                 .commit();
 
 
+
+    }
+
+    private void initLogic() {
+        sharedPreferencesDatabase = new SharedPreferencesDatabase(this);
+        backend = new Retrofit.Builder()
+                .baseUrl(ApplicationConfig.API_ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(NetworkAPI.class);
     }
 
     private void initFragments() {
@@ -189,6 +208,7 @@ public class MainActivity extends AppCompatActivity
                         .commit();
                 break;
             case R.id.action_logout:
+                sharedPreferencesDatabase.clearData();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;

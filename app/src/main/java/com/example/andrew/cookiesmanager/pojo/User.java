@@ -8,10 +8,7 @@ public class User {
     private String email;
     private String username;
     private String photoUrl;
-
-    public User(String username) {
-        this.username = username;
-    }
+    private String accessToken;
 
     public User(String email, String username, String photoUrl) {
 
@@ -20,8 +17,22 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
+    public User(String accessToken){
+        this.accessToken = accessToken;
+    }
+
+
     public User() {
 
+    }
+
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getEmail() {
