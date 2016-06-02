@@ -1,8 +1,10 @@
 package com.example.andrew.cookiesmanager.model;
 
 import com.example.andrew.cookiesmanager.model.requests.AuthRequest;
+import com.example.andrew.cookiesmanager.model.requests.SaveProfileRequest;
 import com.example.andrew.cookiesmanager.model.response.AuthResponse;
 import com.example.andrew.cookiesmanager.pojo.ChatMessage;
+import com.example.andrew.cookiesmanager.pojo.User;
 
 import java.util.ArrayList;
 
@@ -58,7 +60,11 @@ public interface NetworkAPI {
     Call<ResponseBody> signIn(@Query("api_token") String accessToken);
 
     @GET("users/{id}")
-    Call<ResponseBody> getUserProfile(@Path("id") int profileId, @Query("api_token") String accessToken);
+    Call<User> getUserProfile(@Path("id") String profileId, @Query("api_token") String accessToken);
+
+    @POST("user")
+    Call<User> saveProfile(@Query("api_token") String accessToken,
+                           @Body SaveProfileRequest saveProfileRequest);
 
 //    -----Chat
     @GET("chat/channel/{id}")

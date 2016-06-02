@@ -11,8 +11,12 @@ public class User {
     private String id;
     @SerializedName("name")
     private String username;
+    private String surname;
+    private String skype;
     private String photoUrl;
     private String accessToken;
+    private String phone;
+
 
     public User(String email, String username, String photoUrl) {
 
@@ -36,6 +40,30 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getSkype() {
+        return skype;
+    }
+
+    public void setSkype(String skype) {
+        this.skype = skype;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAccessToken() {
