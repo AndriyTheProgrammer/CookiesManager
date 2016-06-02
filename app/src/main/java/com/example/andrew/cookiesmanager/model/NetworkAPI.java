@@ -62,6 +62,9 @@ public interface NetworkAPI {
     @GET("users/{id}")
     Call<User> getUserProfile(@Path("id") String profileId, @Query("api_token") String accessToken);
 
+    @GET("users")
+    Call<ArrayList<User>> getAllUsers(@Query("api_token") String accessToken);
+
     @POST("user")
     Call<User> saveProfile(@Query("api_token") String accessToken,
                            @Body SaveProfileRequest saveProfileRequest);

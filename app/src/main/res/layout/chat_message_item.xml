@@ -13,8 +13,8 @@
     android:layout_marginBottom="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/hetfield_avatar_s"
         android:layout_gravity="top|center"
         android:id="@+id/imageAuthor" />
@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=" james_hetfield"
+        android:textSize="14sp"
+
         android:id="@+id/tv_chat_msg"
         android:layout_gravity="top|center"
         android:textColor="#ffffff"
