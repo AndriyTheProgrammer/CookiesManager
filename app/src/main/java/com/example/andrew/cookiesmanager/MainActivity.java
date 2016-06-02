@@ -35,7 +35,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, NetworkActivity {
 
 
     FloatingActionButton fab;
@@ -225,5 +225,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         return true;
+    }
+
+    @Override
+    public NetworkAPI getBackend() {
+        return backend;
     }
 }

@@ -1,11 +1,15 @@
 package com.example.andrew.cookiesmanager.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by andrew on 30.03.16.
  */
 public class ChatMessage {
 
+    @SerializedName("message")
     private String chatMessage;
+    @SerializedName("user")
     private User author;
 
     public ChatMessage(String chatMessage, User author) {

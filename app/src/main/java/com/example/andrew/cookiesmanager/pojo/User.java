@@ -1,5 +1,7 @@
 package com.example.andrew.cookiesmanager.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by andrew on 02.04.16.
  */
@@ -7,6 +9,7 @@ public class User {
 
     private String email;
     private String id;
+    @SerializedName("name")
     private String username;
     private String photoUrl;
     private String accessToken;

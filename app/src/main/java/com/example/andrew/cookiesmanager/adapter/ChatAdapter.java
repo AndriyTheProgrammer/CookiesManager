@@ -85,8 +85,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
+        int preSize = this.chatMessages.size();
         this.chatMessages = chatMessages;
-        notifyItemRangeChanged(0, chatMessages.size());
+        notifyItemRangeChanged(0, preSize);
     }
 
     public void addChatMessage(ChatMessage message){
