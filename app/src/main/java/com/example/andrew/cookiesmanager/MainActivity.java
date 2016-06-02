@@ -139,11 +139,12 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<User> generateMockUsers() {
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("User 1"));
-        users.add(new User("User 2"));
-        users.add(new User("Slackbot"));
-        users.add(new User("someone.weird"));
-        users.add(new User("User N"));
+        users.add(new User().setUsername("Slackbot"));
+        users.add(new User().setUsername("User 1"));
+        users.add(new User().setUsername("User 2"));
+        users.add(new User().setUsername("User 3"));
+        users.add(new User().setUsername("User N"));
+        users.add(new User().setUsername("another.user"));
         return users;
     }
 

@@ -38,63 +38,78 @@ public class User {
         return id;
     }
 
-    public void setId(String id) {
+    public User setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
+    public User setSurname(String surname) {
         this.surname = surname;
+        return this;
+
     }
 
     public String getSkype() {
         return skype;
     }
 
-    public void setSkype(String skype) {
+    public User setSkype(String skype) {
         this.skype = skype;
+        return this;
+
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public User setPhone(String phone) {
         this.phone = phone;
+        return this;
+
     }
 
     public String getAccessToken() {
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
+    public User setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+        return this;
+
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
+
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
+
     }
 
     public String getPhotoUrl() {
         return photoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
+    public User setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+        return this;
+
     }
 }
