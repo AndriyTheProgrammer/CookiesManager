@@ -1,5 +1,6 @@
 package com.example.andrew.cookiesmanager.model.response;
 
+import com.example.andrew.cookiesmanager.pojo.User;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -9,6 +10,7 @@ public class AuthResponse {
 
     @SerializedName("api_token")
     private String access_token;
+    private User user;
 
     public AuthResponse(String access_token) {
         this.access_token = access_token;
@@ -20,5 +22,13 @@ public class AuthResponse {
 
     public void setAccess_token(String access_token) {
         this.access_token = access_token;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

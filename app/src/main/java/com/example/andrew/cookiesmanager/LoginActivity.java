@@ -113,7 +113,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.isSuccessful()){
-                    sharedPreferencesDatabase.saveUser(new User(response.body().getAccess_token()));
+                    User user = new User(response.body().getAccess_token());
+                    user.setEmail(response.body().getUser().getEmail());
+                    user.setId(response.body().getUser().getId());
+                    sharedPreferencesDatabase.saveUser(user);
                     showMainScreen(true);
 
 
@@ -142,7 +145,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.isSuccessful()){
-                    sharedPreferencesDatabase.saveUser(new User(response.body().getAccess_token()));
+                    User user = new User(response.body().getAccess_token());
+                    user.setEmail(response.body().getUser().getEmail());
+                    user.setId(response.body().getUser().getId());
+                    sharedPreferencesDatabase.saveUser(user);
                     showMainScreen(false);
 
                 }else{

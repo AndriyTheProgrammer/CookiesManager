@@ -6,6 +6,7 @@ package com.example.andrew.cookiesmanager.pojo;
 public class User {
 
     private String email;
+    private String id;
     private String username;
     private String photoUrl;
     private String accessToken;
@@ -26,6 +27,13 @@ public class User {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getAccessToken() {
         return accessToken;
