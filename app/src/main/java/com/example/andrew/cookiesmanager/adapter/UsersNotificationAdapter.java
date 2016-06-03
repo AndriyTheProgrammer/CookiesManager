@@ -73,7 +73,9 @@ public class UsersNotificationAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     private void setupItemView(UserViewHolder holder, int position) {
-        holder.tvUsername.setText(users.get(position).getEmail());
+        if (users.get(position).getUsername() != null && !users.get(position).getUsername().equals(""))
+            holder.tvUsername.setText(users.get(position).getUsername());
+        else holder.tvUsername.setText(users.get(position).getEmail());
     }
 
 

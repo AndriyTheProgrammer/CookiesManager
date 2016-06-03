@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=" james_hetfield"
+        android:textSize="12sp"
         android:id="@+id/tv_chat_msg"
         android:layout_gravity="center"
         android:textColor="#212121"

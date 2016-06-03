@@ -6,9 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.example.andrew.cookiesmanager.adapter.UserListAdapter;
 import com.example.andrew.cookiesmanager.database.SharedPreferencesDatabase;
@@ -31,6 +27,9 @@ import com.example.andrew.cookiesmanager.pojo.User;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -131,22 +130,24 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         });
-        adapter.setUser(generateMockUsers());
+
         usersList.setLayoutManager(new LinearLayoutManager(this));
         usersList.setAdapter(adapter);
 
+        backend.getAllUsers(sharedPreferencesDatabase.getCurrentUser().getAccessToken()).enqueue(new Callback<ArrayList<User>>() {
+            @Override
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                adapter.setUser(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+                Snackbar.make(fab, "Cant load users: " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
-    private ArrayList<User> generateMockUsers() {
-        ArrayList<User> users = new ArrayList<>();
-        users.add(new User().setUsername("Slackbot"));
-        users.add(new User().setUsername("User 1"));
-        users.add(new User().setUsername("User 2"));
-        users.add(new User().setUsername("User 3"));
-        users.add(new User().setUsername("User N"));
-        users.add(new User().setUsername("another.user"));
-        return users;
-    }
 
     private void findViewsById() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);

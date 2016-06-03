@@ -79,8 +79,9 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     Random random = new Random();
     private void setupItemView(UserViewHolder holder, int position) {
         holder.itemView.setOnClickListener(onClick);
-        holder.tvUsername.setText(users.get(position).getUsername());
-
+        if (users.get(position).getUsername() != null && !users.get(position).getUsername().equals(""))
+            holder.tvUsername.setText(users.get(position).getUsername());
+        else holder.tvUsername.setText(users.get(position).getEmail());
         if (random.nextBoolean())
             holder.imageOnline.setImageDrawable(new ColorDrawable(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent)));
         else
