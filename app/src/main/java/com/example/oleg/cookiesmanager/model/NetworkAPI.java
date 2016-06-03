@@ -76,5 +76,9 @@ public interface NetworkAPI {
     @POST("chat/channel/{id}")
     Call<ResponseBody> sendChannelMessage(@Path("id") int groupId, @Query("api_token") String accessToken, @Query("message") String message);
 
+    @GET("chat/direct/{id}")
+    Call<ArrayList<ChatMessage>> getAllPrivateMessages(@Path("id") int userId, @Query("api_token") String accessToken);
 
+    @POST("chat/direct/{id}")
+    Call<ResponseBody> sendPrivateMessage(@Path("id") int userId, @Query("api_token") String accessToken, @Query("message") String message);
 }

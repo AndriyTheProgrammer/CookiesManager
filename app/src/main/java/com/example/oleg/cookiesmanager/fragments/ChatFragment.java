@@ -44,6 +44,9 @@ public class ChatFragment extends Fragment {
     NetworkAPI backend;
     SharedPreferencesDatabase sharedPreferencesDatabase;
 
+    int directChatUserId = 3;
+    private boolean direct = true;
+
     public ChatFragment() {
         // Required empty public constructor
     }
@@ -58,8 +61,8 @@ public class ChatFragment extends Fragment {
         findViewsById();
         initViewsData();
         setUiListeners();
+        setDirectChat(directChatUserId);
 
-        getAllMessages();
 
         return rootView;
     }
@@ -85,7 +88,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void sendNewMessage(ChatMessage chatMessage){
-        backend.sendChannelMessage(1, sharedPreferencesDatabase.getCurrentUser().getAccessToken(), chatMessage.getChatMessage()).enqueue(new Callback<ResponseBody>() {
+        backend.sendPrivateMessage(directChatUserId, sharedPreferencesDatabase.getCurrentUser().getAccessToken(), chatMessage.getChatMessage()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 //                Ignore
@@ -96,7 +99,7 @@ public class ChatFragment extends Fragment {
                 Snackbar.make(rootView, t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
-        getAllMessages();
+        getAllMessages(direct, directChatUserId);
 //        chatAdapter.addChatMessage(chatMessage);
     }
 
@@ -108,17 +111,38 @@ public class ChatFragment extends Fragment {
 
     }
 
-    private void getAllMessages() {
-        backend.getAllChatChannelMessages(1, sharedPreferencesDatabase.getCurrentUser().getAccessToken()).enqueue(new Callback<ArrayList<ChatMessage>>() {
-            @Override
-            public void onResponse(Call<ArrayList<ChatMessage>> call, Response<ArrayList<ChatMessage>> response) {
-                chatAdapter.setChatMessages(response.body());
-            }
+    public void setDirectChat(int userId){
+        direct = true;
+        this.directChatUserId = userId;
+        if (sharedPreferencesDatabase != null) getAllMessages(true, userId);
+    }
 
-            @Override
-            public void onFailure(Call<ArrayList<ChatMessage>> call, Throwable t) {
-                Snackbar.make(rootView, "Shit happens", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+    private void getAllMessages(boolean direct, int id) {
+        if (direct){
+            backend.getAllPrivateMessages(id, sharedPreferencesDatabase.getCurrentUser().getAccessToken()).enqueue(new Callback<ArrayList<ChatMessage>>() {
+                @Override
+                public void onResponse(Call<ArrayList<ChatMessage>> call, Response<ArrayList<ChatMessage>> response) {
+                    chatAdapter.setChatMessages(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<ChatMessage>> call, Throwable t) {
+                    Snackbar.make(rootView, "Shit happens", Snackbar.LENGTH_SHORT).show();
+                }
+            });
+
+        }else {
+            backend.getAllChatChannelMessages(id, sharedPreferencesDatabase.getCurrentUser().getAccessToken()).enqueue(new Callback<ArrayList<ChatMessage>>() {
+                @Override
+                public void onResponse(Call<ArrayList<ChatMessage>> call, Response<ArrayList<ChatMessage>> response) {
+                    chatAdapter.setChatMessages(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<ChatMessage>> call, Throwable t) {
+                    Snackbar.make(rootView, "Shit happens", Snackbar.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

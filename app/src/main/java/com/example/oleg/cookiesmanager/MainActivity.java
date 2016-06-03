@@ -66,11 +66,19 @@ public class MainActivity extends AppCompatActivity
         initUiListeners();
         initFragments();
 
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_content_container, chatFragment)
-                .commit();
+        if (!getIntent().getBooleanExtra("openProfile", false)) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_content_container, chatFragment)
+                    .commit();
+            chatFragment.setDirectChat(3);
 
+        }
+        else
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_content_container, editProfileFragment)
+                    .commit();
 
 
     }
@@ -132,6 +140,8 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.main_content_container, chatFragment)
                     .addToBackStack(null)
                     .commit();
+            chatFragment.setDirectChat(3);
+
         });
 
         usersList.setLayoutManager(new LinearLayoutManager(this));
@@ -160,7 +170,6 @@ public class MainActivity extends AppCompatActivity
         navHeader = navigationView.inflateHeaderView(R.layout.nav_header_main);
         usersList = (RecyclerView) navHeader.findViewById(R.id.userList);
         searchView = (SearchView) navHeader.findViewById(R.id.search_view);
-//        searchView = (SearchView) navHeader.findViewById(R.id.search_view);
     }
 
     @Override

@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.isSuccessful()){
                     User user = new User(response.body().getAccess_token());
-                    user.setEmail(response.body().getUser().getEmail());
+                    user.setEmail(etEmail.getText().toString());
                     user.setId(response.body().getUser().getId());
                     sharedPreferencesDatabase.saveUser(user);
                     showMainScreen(true);
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.isSuccessful()){
                     User user = new User(response.body().getAccess_token());
-                    user.setEmail(response.body().getUser().getEmail());
+                    user.setEmail(etEmail.getText().toString());
                     user.setId(response.body().getUser().getId());
                     sharedPreferencesDatabase.saveUser(user);
                     showMainScreen(false);
