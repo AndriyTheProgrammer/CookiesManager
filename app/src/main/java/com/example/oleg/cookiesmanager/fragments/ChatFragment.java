@@ -100,6 +100,7 @@ public class ChatFragment extends Fragment {
             }
         });
         getAllMessages(direct, directChatUserId);
+        etChatMessage.setText("");
 //        chatAdapter.addChatMessage(chatMessage);
     }
 

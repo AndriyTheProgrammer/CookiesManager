@@ -78,6 +78,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     Random random = new Random();
     private void setupItemView(UserViewHolder holder, int position) {
+        holder.itemView.setTag("" + users.get(position).getId());
         holder.itemView.setOnClickListener(onClick);
         if (users.get(position).getUsername() != null && !users.get(position).getUsername().equals(""))
             holder.tvUsername.setText(users.get(position).getUsername());

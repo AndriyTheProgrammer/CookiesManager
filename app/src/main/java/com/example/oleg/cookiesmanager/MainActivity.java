@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.main_content_container, chatFragment)
                     .addToBackStack(null)
                     .commit();
-            chatFragment.setDirectChat(3);
+            chatFragment.setDirectChat(Integer.parseInt(v.getTag().toString()));
 
         });
 
@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
                 adapter.setUser(response.body());
+
             }
 
             @Override
