@@ -22,11 +22,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int EMPTY_VIEW = 1;
     private static final int DEFAULT_VIEW = 2;
 
-    private ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
     private View.OnClickListener onClick;
     private View view;
     private String searchQuery = "";
+    private String selectedTag = "";
 
     @Override
     public int getItemViewType(int position) {
@@ -86,12 +86,21 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        else
 //            holder.imageOnline.setImageDrawable(new ColorDrawable(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.white)));
 
-        if (!searchQuery.equals("") && holder.tvUsername.getText().toString().toLowerCase()
+        if (holder.tvUsername.getText().toString().toLowerCase()
                 .contains(searchQuery.toLowerCase())) {
             holder.itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         }else{
             holder.itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+        }
+        if (searchQuery.length() == 0) holder.itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (selectedTag.equals("")) {
+            selectedTag = holder.itemView.getTag().toString();
+            holder.tvUsername.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
+        }else if (selectedTag.equals(holder.itemView.getTag().toString())){
+            holder.tvUsername.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
+        }else {
+            holder.tvUsername.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.black));
         }
     }
 
@@ -101,13 +110,13 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void setUser(ArrayList<User> users) {
         this.users = users;
-        this.allUsers = users;
         notifyItemRangeChanged(0, users.size());
     }
 
+
+
     public void addUser(User user){
         users.add(user);
-        allUsers.add(user);
         notifyItemInserted(users.indexOf(user));
     }
 
@@ -121,6 +130,10 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.onClick = onClick;
     }
 
+    public void viewClicked(String tag) {
+        selectedTag = tag;
+        notifyDataSetChanged();
+    }
 
 
     class UserViewHolder extends RecyclerView.ViewHolder {

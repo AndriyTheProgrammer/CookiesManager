@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
             chatFragment.setDirectChat(Integer.parseInt(v.getTag().toString()));
+            adapter.viewClicked(v.getTag().toString());
 
         });
 

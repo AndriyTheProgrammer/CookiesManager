@@ -71,7 +71,14 @@ public class ChatFragment extends Fragment {
         sendImage.setOnClickListener(v -> {
             if (etChatMessage.length() != 0)
                 sendNewMessage(new ChatMessage(etChatMessage.getText().toString(), new User()));
+            else {
+                showError("Chat message cannot be empty");
+            }
         });
+    }
+
+    private void showError(String errorMessage) {
+        Snackbar.make(rootView, errorMessage, Snackbar.LENGTH_SHORT).show();
     }
 
     private void initViewsData() {
