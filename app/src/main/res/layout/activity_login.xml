@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.oleg.cookiesmanager.LoginActivity"
+    tools:context="com.example.oleg.keepontrack.LoginActivity"
     android:fitsSystemWindows="true"
     android:background="@color/colorPrimary2">
     <RelativeLayout
