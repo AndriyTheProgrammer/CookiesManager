@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.oleg.keepontrack.NetworkActivity;
 import com.example.oleg.keepontrack.R;
@@ -30,16 +31,17 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     View rootView;
     Spinner spinner;
-    Button btnSave;
+    Button btnCall;
     NetworkAPI backend;
     SharedPreferencesDatabase sharedPreferencesDatabase;
-    EditText etName, etSurname, etPhone, etSkype, etEmail;
+    TextView etName, etSurname, etPhone, etSkype, etEmail;
+    private int id;
 
-    public EditProfileFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -47,7 +49,7 @@ public class EditProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView =  inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        rootView =  inflater.inflate(R.layout.fragment_profile, container, false);
         findViewsById();
         setUiListeners();
         backend = ((NetworkActivity) getActivity()).getBackend();
@@ -71,28 +73,27 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void setUiListeners() {
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveProfile();
-            }
+        btnCall.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + etPhone.getText().toString()));
+            startActivity(intent);
         });
+
     }
 
 
 
     private void findViewsById() {
         spinner = (Spinner) rootView.findViewById(R.id.spinner);
-        btnSave = (Button) rootView.findViewById(R.id.btnSave);
-        etName = (EditText) rootView.findViewById(R.id.etName);
-        etSurname = (EditText) rootView.findViewById(R.id.etSurname);
-        etPhone = (EditText) rootView.findViewById(R.id.etPhone);
-        etSkype = (EditText) rootView.findViewById(R.id.etSkype);
+        btnCall = (Button) rootView.findViewById(R.id.btnCall);
+        etName = (TextView) rootView.findViewById(R.id.etName);
+        etSurname = (TextView) rootView.findViewById(R.id.etSurname);
+        etPhone = (TextView) rootView.findViewById(R.id.etPhone);
+        etSkype = (TextView) rootView.findViewById(R.id.etSkype);
     }
 
     private void getUserProfile() {
-        backend.getUserProfile(sharedPreferencesDatabase.getCurrentUser().getId(),
+        backend.getUserProfile(id + "",
                 sharedPreferencesDatabase.getCurrentUser().getAccessToken()).enqueue(
                 new Callback<User>() {
                     @Override
@@ -115,28 +116,8 @@ public class EditProfileFragment extends Fragment {
         if (user.getSkype() != null) etSkype.setText(user.getSkype());
     }
 
-    private void saveProfile() {
 
-        SaveProfileRequest saveProfileRequest = new SaveProfileRequest();
-        if (etName.getText().toString().length() != 0) saveProfileRequest.setName(etName.getText().toString());
-        if (etSurname.getText().toString().length() != 0) saveProfileRequest.setSurname(etSurname.getText().toString());
-//        if (spinner.getSelectedItem().toString().length() != 0) saveProfileRequest.setPosition_id(spinner.getSelectedItem().toString());
-        if (etPhone.getText().toString().length() != 0) saveProfileRequest.setPhone(etPhone.getText().toString());
-        if (etSkype.getText().toString().length() != 0) saveProfileRequest.setSkype(etSkype.getText().toString());
-
-        backend.saveProfile(sharedPreferencesDatabase.getCurrentUser().getAccessToken(),
-                saveProfileRequest
-                ).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                getUserProfile();
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
+    public void setId(int id) {
+        this.id = id;
     }
-
 }

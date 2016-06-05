@@ -72,6 +72,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setupItemView(ChatMessageViewHolder holder, int position) {
         holder.tvChatMessage.setText(chatMessages.get(position).getChatMessage());
+        holder.imageAuthor.setTag("" + chatMessages.get(position).getAuthor().getId());
         holder.imageAuthor.setOnClickListener(onClick);
     }
 

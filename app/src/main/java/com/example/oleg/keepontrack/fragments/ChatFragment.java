@@ -83,12 +83,15 @@ public class ChatFragment extends Fragment {
 
     private void initViewsData() {
         chatAdapter = new ChatAdapter();
-        chatAdapter.setOnClick(v ->
+        chatAdapter.setOnClick(v ->{
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.setId(Integer.parseInt(v.getTag().toString()));
                 getActivity().getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main_content_container, ((MainActivity) getActivity()).editProfileFragment)
+                        .replace(R.id.main_content_container, profileFragment)
                         .addToBackStack(null)
-                        .commit());
+                        .commit();
+        });
         chatList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         chatList.setAdapter(chatAdapter);
 
