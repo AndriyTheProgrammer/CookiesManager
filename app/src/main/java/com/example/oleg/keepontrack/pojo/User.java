@@ -11,16 +11,16 @@ public class User {
     private String username;
     private String surname;
     private String skype;
-    private String photoUrl;
+    private String image;
     private String accessToken;
     private String phone;
 
 
-    public User(String email, String username, String photoUrl) {
+    public User(String email, String username, String image) {
 
         this.email = email;
         this.username = username;
-        this.photoUrl = photoUrl;
+        this.image = image;
     }
 
     public User(String accessToken){
@@ -101,12 +101,12 @@ public class User {
 
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
+    public String getImage() {
+        return image;
     }
 
-    public User setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public User setImage(String image) {
+        this.image = image;
         return this;
 
     }

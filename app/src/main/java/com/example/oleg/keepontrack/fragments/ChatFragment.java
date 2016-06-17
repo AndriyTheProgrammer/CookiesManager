@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import com.example.oleg.keepontrack.database.SharedPreferencesDatabase;
 import com.example.oleg.keepontrack.model.NetworkAPI;
 import com.example.oleg.keepontrack.pojo.ChatMessage;
 import com.example.oleg.keepontrack.pojo.User;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -62,6 +66,21 @@ public class ChatFragment extends Fragment {
         initViewsData();
         setUiListeners();
         setDirectChat(directChatUserId);
+
+        backend.getWeeklyStats(Integer.parseInt(
+                sharedPreferencesDatabase.getCurrentUser().getId()),
+                sharedPreferencesDatabase.getCurrentUser().getAccessToken())
+        .enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG,response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
 
 
         return rootView;

@@ -3,7 +3,10 @@ package com.example.oleg.keepontrack;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -106,8 +109,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private String getMac(){
+        WifiManager wifiMan = (WifiManager) this.getSystemService(
+                Context.WIFI_SERVICE);
+        WifiInfo wifiInf = wifiMan.getConnectionInfo();
+        return wifiInf.getMacAddress();
+    }
+
     private void tryToSignUp() {
-        backend.register(new AuthRequest(etEmail.getText().toString(), etPassword.getText().toString()))
+
+
+        backend.register(new AuthRequest(etEmail.getText().toString(), etPassword.getText().toString(), getMac()))
         .enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {

@@ -8,6 +8,15 @@ public class SaveProfileRequest {
      String position_id;
      String phone;
      String skype;
+     String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getName() {
         return name;

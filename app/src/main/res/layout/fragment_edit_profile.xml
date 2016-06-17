@@ -23,7 +23,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:id="@+id/imageView"
+        android:id="@+id/avatar"
         android:src="@drawable/hetfield_avatar_s"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp" />

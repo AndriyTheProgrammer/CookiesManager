@@ -5,6 +5,9 @@ import com.example.oleg.keepontrack.model.requests.SaveProfileRequest;
 import com.example.oleg.keepontrack.model.response.AuthResponse;
 import com.example.oleg.keepontrack.pojo.ChatMessage;
 import com.example.oleg.keepontrack.pojo.User;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -81,4 +84,11 @@ public interface NetworkAPI {
 
     @POST("chat/direct/{id}")
     Call<ResponseBody> sendPrivateMessage(@Path("id") int userId, @Query("api_token") String accessToken, @Query("message") String message);
+
+    //    -----Statistic
+
+    @GET("users/{id}/stats/weekly")
+    Call<ResponseBody> getWeeklyStats(@Path("id") int userId, @Query("api_token") String accessToken);
+
+
 }
