@@ -123,7 +123,6 @@ public class EditProfileFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Snackbar.make(rootView, t.getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
                 }
         );

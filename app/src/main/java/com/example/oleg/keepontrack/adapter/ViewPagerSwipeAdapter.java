@@ -31,6 +31,13 @@ public class ViewPagerSwipeAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (position == 0) return "Today";
+        else if (position == 1) return "Month";
+        else return "All time";
+    }
+
     public ArrayList<View> getViews() {
         return views;
     }

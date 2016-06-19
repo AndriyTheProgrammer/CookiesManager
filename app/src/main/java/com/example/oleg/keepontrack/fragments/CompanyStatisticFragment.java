@@ -2,6 +2,8 @@ package com.example.oleg.keepontrack.fragments;
 
 
 import android.app.Fragment;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -45,6 +47,7 @@ public class CompanyStatisticFragment extends Fragment {
         initMonthlyList();
         viewPager.setAdapter(viewPagerSwipeAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabTextColors(ColorStateList.valueOf(Color.WHITE));
 
         return rootView;
     }
@@ -56,6 +59,9 @@ public class CompanyStatisticFragment extends Fragment {
         hashMap.put(123l, "2");
         hashMap.put(5l, "4");
         hashMap.put(1000l, "7");
+        hashMap.put(1000l, "8");
+        hashMap.put(1000l, "8");
+        hashMap.put(1000l, "10");
         statsAdapter.setMap(hashMap);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(statsAdapter);
@@ -63,8 +69,14 @@ public class CompanyStatisticFragment extends Fragment {
     }
 
     private void initDailyList() {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.stat_item, null);
-        viewPagerSwipeAdapter.addView(view);
+        RecyclerView recyclerView = new RecyclerView(getActivity());
+        StatsAdapter statsAdapter = new StatsAdapter();
+        HashMap<Long, String> hashMap = new HashMap<>();
+        hashMap.put(123l, "6");
+        statsAdapter.setMap(hashMap);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(statsAdapter);
+        viewPagerSwipeAdapter.addView(recyclerView);
     }
 
 }
