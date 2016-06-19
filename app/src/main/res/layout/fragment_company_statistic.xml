@@ -4,158 +4,21 @@
     android:layout_height="match_parent"
     tools:context="com.example.oleg.keepontrack.fragments.CompanyStatisticFragment"
     android:background="@color/colorPrimaryDark"
-    android:padding="16dp"
+
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:background="@color/colorPrimary"
+        android:id="@+id/tab_layout"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="QA"
-            android:id="@+id/textView4"
-            android:textColor="#ffffff"
-            android:layout_weight="1" />
+   <android.support.v4.view.ViewPager
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/view_pager"
+       android:padding="16dp"/>
 
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:max="100"
-        android:progress="40"
-        android:indeterminate="false"
-        android:layout_marginLeft="16dp"
-
-        android:layout_marginRight="16dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="6.8h"
-            android:id="@+id/textView3"
-            android:textColor="#ffffff"
-            android:gravity="end|right"
-            android:textSize="16dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Designer"
-            android:textColor="#ffffff"
-            android:layout_weight="1" />
-
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-           android:max="100"
-            android:progress="80"
-            android:indeterminate="false"
-            android:layout_marginLeft="16dp"
-
-            android:layout_marginRight="16dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="6.8h"
-            android:textColor="#ffffff"
-            android:gravity="end|right"
-            android:textSize="16dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="PM"
-            android:textColor="#ffffff"
-            android:layout_weight="1" />
-
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="70"
-            android:indeterminate="false"
-            android:layout_marginLeft="16dp"
-
-            android:layout_marginRight="16dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="6.8h"
-            android:textColor="#ffffff"
-            android:gravity="end|right"
-            android:textSize="16dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Developer"
-            android:textColor="#ffffff"
-            android:layout_weight="1" />
-
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:indeterminate="false"
-            android:layout_marginLeft="16dp"
-
-            android:layout_marginRight="16dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="6.8h"
-            android:textColor="#ffffff"
-            android:gravity="end|right"
-            android:textSize="16dp" />
-
-    </LinearLayout>
 </LinearLayout>

@@ -20,7 +20,9 @@ import com.example.oleg.keepontrack.adapter.ChatAdapter;
 import com.example.oleg.keepontrack.database.SharedPreferencesDatabase;
 import com.example.oleg.keepontrack.model.NetworkAPI;
 import com.example.oleg.keepontrack.pojo.ChatMessage;
+import com.example.oleg.keepontrack.pojo.StatsResponse;
 import com.example.oleg.keepontrack.pojo.User;
+import com.example.oleg.keepontrack.utils.ToStringConverter;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -67,24 +69,11 @@ public class ChatFragment extends Fragment {
         setUiListeners();
         setDirectChat(directChatUserId);
 
-        backend.getWeeklyStats(Integer.parseInt(
-                sharedPreferencesDatabase.getCurrentUser().getId()),
-                sharedPreferencesDatabase.getCurrentUser().getAccessToken())
-        .enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG,response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
-            }
-        });
 
 
         return rootView;
     }
+
 
     private void setUiListeners() {
         sendImage.setOnClickListener(v -> {
@@ -157,7 +146,6 @@ public class ChatFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<ArrayList<ChatMessage>> call, Throwable t) {
-                    Snackbar.make(rootView, "Shit happens", Snackbar.LENGTH_SHORT).show();
                 }
             });
 

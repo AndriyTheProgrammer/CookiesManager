@@ -4,6 +4,7 @@ import com.example.oleg.keepontrack.model.requests.AuthRequest;
 import com.example.oleg.keepontrack.model.requests.SaveProfileRequest;
 import com.example.oleg.keepontrack.model.response.AuthResponse;
 import com.example.oleg.keepontrack.pojo.ChatMessage;
+import com.example.oleg.keepontrack.pojo.StatsResponse;
 import com.example.oleg.keepontrack.pojo.User;
 import com.google.gson.JsonObject;
 
@@ -87,8 +88,8 @@ public interface NetworkAPI {
 
     //    -----Statistic
 
-    @GET("users/{id}/stats/weekly")
-    Call<ResponseBody> getWeeklyStats(@Path("id") int userId, @Query("api_token") String accessToken);
+    @GET("users/{id}/stats/monthly")
+    Call<StatsResponse> getWeeklyStats(@Path("id") int userId, @Query("api_token") String accessToken);
 
 
 }
