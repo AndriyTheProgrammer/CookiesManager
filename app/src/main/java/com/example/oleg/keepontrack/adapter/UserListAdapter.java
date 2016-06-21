@@ -78,8 +78,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void setupItemView(UserViewHolder holder, int position) {
         holder.itemView.setTag("" + users.get(position).getId());
         holder.itemView.setOnClickListener(onClick);
-        if (users.get(position).getUsername() != null && !users.get(position).getUsername().equals(""))
-            holder.tvUsername.setText(users.get(position).getUsername());
+        if (users.get(position).getUsername() != null && !users.get(position).getUsername().equals("")) {
+            if (users.get(position).getSurname() != null)
+            holder.tvUsername.setText(users.get(position).getUsername() + " " + users.get(position).getSurname());
+            else holder.tvUsername.setText(users.get(position).getUsername());
+        }
         else holder.tvUsername.setText(users.get(position).getEmail());
 //        if (random.nextBoolean())
             holder.imageOnline.setImageDrawable(new ColorDrawable(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent)));

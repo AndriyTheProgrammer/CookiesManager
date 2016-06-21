@@ -50,6 +50,7 @@ public class EditProfileFragment extends Fragment {
     EditText etName, etSurname, etPhone, etSkype, etEmail;
     CircleImageView avatar;
     private Uri avatarUri;
+    private boolean buttonUpdate = false;
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -84,11 +85,9 @@ public class EditProfileFragment extends Fragment {
 
     private void setUiListeners() {
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveProfile();
-            }
+        btnSave.setOnClickListener(view -> {
+            buttonUpdate = true;
+            saveProfile();
         });
 
         avatar.setOnClickListener(view -> {
@@ -136,6 +135,11 @@ public class EditProfileFragment extends Fragment {
         if (user.getImage()!= null && !user.getImage().equals("")){
             Glide.with(getActivity()).load(user.getImage()).into(avatar);
         }
+        if (buttonUpdate) {
+            Snackbar.make(rootView, "Info successfully saved", Snackbar.LENGTH_SHORT).show();
+            buttonUpdate = false;
+        }
+
     }
 
     private void saveProfile() {
