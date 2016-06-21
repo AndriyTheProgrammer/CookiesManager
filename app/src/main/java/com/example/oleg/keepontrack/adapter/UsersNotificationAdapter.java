@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.oleg.keepontrack.R;
 import com.example.oleg.keepontrack.pojo.User;
 
@@ -69,6 +71,12 @@ public class UsersNotificationAdapter extends RecyclerView.Adapter<RecyclerView.
         if (users.get(position).getUsername() != null && !users.get(position).getUsername().equals(""))
             holder.tvUsername.setText(users.get(position).getUsername());
         else holder.tvUsername.setText(users.get(position).getEmail());
+
+            Glide.with(holder.itemView.getContext())
+                    .load(users.get(position).getImage())
+                    .error(R.drawable.ic_person_black_24dp)
+                    .into(holder.avatar);
+
     }
 
 
@@ -84,10 +92,12 @@ public class UsersNotificationAdapter extends RecyclerView.Adapter<RecyclerView.
 
 
         TextView tvUsername;
-        public UserViewHolder(View itemView) {
+        ImageView avatar;
+        UserViewHolder(View itemView) {
             super(itemView);
 
             tvUsername = (TextView) itemView.findViewById(R.id.tvName);
+            avatar = (ImageView) itemView.findViewById(R.id.avatar);
 
 
         }
