@@ -4,6 +4,7 @@ package com.example.oleg.keepontrack.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,6 +43,7 @@ public class ChatFragment extends Fragment {
     private static final String TAG = ChatFragment.class.getName();
     View rootView;
     RecyclerView chatList;
+    SwipeRefreshLayout swipeRefreshLayout;
     ImageView sendImage;
     EditText etChatMessage;
 
@@ -83,6 +85,9 @@ public class ChatFragment extends Fragment {
                 showError("Chat message cannot be empty");
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            setDirectChat(directChatUserId);
+        });
     }
 
     private void showError(String errorMessage) {
@@ -109,7 +114,7 @@ public class ChatFragment extends Fragment {
         backend.sendPrivateMessage(directChatUserId, sharedPreferencesDatabase.getCurrentUser().getAccessToken(), chatMessage.getChatMessage()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                Ignore
+                setDirectChat(directChatUserId);
             }
 
             @Override
@@ -125,6 +130,7 @@ public class ChatFragment extends Fragment {
 
     private void findViewsById() {
         chatList = (RecyclerView) rootView.findViewById(R.id.chat_list);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         sendImage = (ImageView) rootView.findViewById(R.id.send_image);
         etChatMessage = (EditText) rootView.findViewById(R.id.et_chat_message);
 
@@ -142,10 +148,12 @@ public class ChatFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ArrayList<ChatMessage>> call, Response<ArrayList<ChatMessage>> response) {
                     chatAdapter.setChatMessages(response.body());
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
                 public void onFailure(Call<ArrayList<ChatMessage>> call, Throwable t) {
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             });
 
