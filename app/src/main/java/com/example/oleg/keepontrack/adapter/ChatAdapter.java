@@ -1,5 +1,7 @@
 package com.example.oleg.keepontrack.adapter;
 
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.oleg.keepontrack.R;
+import com.example.oleg.keepontrack.database.SharedPreferencesDatabase;
 import com.example.oleg.keepontrack.pojo.ChatMessage;
 
 import java.util.ArrayList;
@@ -79,6 +82,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.tvChatMessage.setText(chatMessages.get(position).getChatMessage());
         holder.imageAuthor.setTag(R.id.action_logout, "" + chatMessages.get(position).getAuthor().getId());
         holder.imageAuthor.setOnClickListener(onClick);
+        if (chatMessages.get(position).getAuthor().getId().equals(new SharedPreferencesDatabase(holder.itemView.getContext()).getCurrentUser().getId())){
+            holder.tvChatMessage.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimary2));
+        }else{
+            holder.tvChatMessage.setTextColor(Color.WHITE);
+        }
 
 
     }
