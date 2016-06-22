@@ -3,8 +3,11 @@ package com.example.oleg.keepontrack.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -132,10 +136,10 @@ public class EditProfileFragment extends Fragment {
         if (user.getSurname() != null) etSurname.setText(user.getSurname());
         if (user.getPhone() != null) etPhone.setText(user.getPhone());
         if (user.getSkype() != null) etSkype.setText(user.getSkype());
-            Glide.with(getActivity())
-                    .load(user.getImage())
-                    .error(R.drawable.ic_person_primary_24dp)
-                    .into(avatar);
+//            Glide.with(getActivity())
+//                    .load(user.getImage())
+//                    .error(R.drawable.ic_person_primary_24dp)
+//                    .into(avatar);
         if (buttonUpdate) {
             Snackbar.make(rootView, "Info successfully saved", Snackbar.LENGTH_SHORT).show();
             buttonUpdate = false;
@@ -186,27 +190,23 @@ public class EditProfileFragment extends Fragment {
 
         if (resultCode == RESULT_OK) {
             avatarUri = data.getData();
-            avatar.setImageURI(avatarUri);
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), avatarUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            avatar.setImageBitmap(bitmap);
         }
     }
 
     public byte[] readBytes(Uri uri) throws IOException {
         // this dynamically extends to take the bytes you read
-        InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-
-        // this is storage overwritten on each iteration with bytes
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-
-        // we need to know how may bytes were read to write them to the byteBuffer
-        int len = 0;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-
-        // and then we can return your byte array.
-        return byteBuffer.toByteArray();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        InputStream image_stream = getActivity().getContentResolver().openInputStream(uri);
+        Bitmap bitmap = BitmapFactory.decodeStream(image_stream );
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
     }
 
 
