@@ -98,7 +98,7 @@ public class ChatFragment extends Fragment {
         chatAdapter = new ChatAdapter();
         chatAdapter.setOnClick(v ->{
             ProfileFragment profileFragment = new ProfileFragment();
-            profileFragment.setId(Integer.parseInt(v.getTag().toString()));
+            profileFragment.setId(Integer.parseInt(v.getTag(R.id.action_logout).toString()));
                 getActivity().getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_content_container, profileFragment)

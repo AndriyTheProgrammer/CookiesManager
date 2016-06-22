@@ -102,7 +102,7 @@ public class CompanyStatisticFragment extends Fragment {
                 key = time;
 
             }else
-            if (time < key) key = time;
+            if (time > key) key = time;
         }
         hashMap.put(key, statsData.get(key));
         statsAdapter.setMap(hashMap);

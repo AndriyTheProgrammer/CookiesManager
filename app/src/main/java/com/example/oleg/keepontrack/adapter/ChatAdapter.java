@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.oleg.keepontrack.R;
 import com.example.oleg.keepontrack.pojo.ChatMessage;
 
@@ -71,9 +72,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void setupItemView(ChatMessageViewHolder holder, int position) {
+        Glide.with(holder.itemView.getContext())
+                .load(chatMessages.get(position).getAuthor().getImage())
+                .error(R.drawable.ic_person_black_24dp)
+                .into(holder.imageAuthor);
         holder.tvChatMessage.setText(chatMessages.get(position).getChatMessage());
-        holder.imageAuthor.setTag("" + chatMessages.get(position).getAuthor().getId());
+        holder.imageAuthor.setTag(R.id.action_logout, "" + chatMessages.get(position).getAuthor().getId());
         holder.imageAuthor.setOnClickListener(onClick);
+
+
     }
 
     public ArrayList<ChatMessage> getChatMessages() {

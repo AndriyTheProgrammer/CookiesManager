@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.oleg.keepontrack.NetworkActivity;
 import com.example.oleg.keepontrack.R;
 import com.example.oleg.keepontrack.adapter.PositionsAdapter;
@@ -114,6 +116,10 @@ public class ProfileFragment extends Fragment {
         if (user.getSurname() != null) etSurname.setText(user.getSurname());
         if (user.getPhone() != null) etPhone.setText(user.getPhone());
         if (user.getSkype() != null) etSkype.setText(user.getSkype());
+        Glide.with(getActivity())
+                .load(user.getImage())
+                .error(R.drawable.ic_person_primary_24dp)
+                .into(((ImageView) rootView.findViewById(R.id.imageView)));
     }
 
 

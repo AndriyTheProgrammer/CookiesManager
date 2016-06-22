@@ -24,7 +24,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:id="@+id/imageView"
-        android:src="@drawable/hetfield_avatar_s"
+        android:src="@drawable/ic_person_primary_24dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp" />
 

@@ -132,9 +132,10 @@ public class EditProfileFragment extends Fragment {
         if (user.getSurname() != null) etSurname.setText(user.getSurname());
         if (user.getPhone() != null) etPhone.setText(user.getPhone());
         if (user.getSkype() != null) etSkype.setText(user.getSkype());
-        if (user.getImage()!= null && !user.getImage().equals("")){
-            Glide.with(getActivity()).load(user.getImage()).into(avatar);
-        }
+            Glide.with(getActivity())
+                    .load(user.getImage())
+                    .error(R.drawable.ic_person_primary_24dp)
+                    .into(avatar);
         if (buttonUpdate) {
             Snackbar.make(rootView, "Info successfully saved", Snackbar.LENGTH_SHORT).show();
             buttonUpdate = false;
